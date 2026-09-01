@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<!--
+  Content Security Policy
+  読み込みを許可する対象を、このサイト内のファイルと
+  国土地理院の地図タイルだけに限定しています。
+  （Webサーバ側でHTTPヘッダーとして設定する方法は SECURITY.md を参照）
+-->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https://cyberjapandata.gsi.go.jp; connect-src 'self'; font-src 'self'; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="石川県内の農業用ため池の位置および基礎情報を表示する地図です。">
+<!-- favicon 未設定による不要なリクエストを防ぐための指定です。独自のアイコンを使う場合は差し替えてください。 -->
+<link rel="icon" href="data:,">
+<title>石川県 ため池マップ</title>
+<link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <h1>石川県 ため池マップ</h1>
+</header>
+
+<main>
+
+  <!-- 検索操作 -->
+  <div class="controls">
+    <div class="control-field">
+      <label for="city-select">市町</label>
+      <select id="city-select">
+        <option value="">すべての市町</option>
+      </select>
+    </div>
+    <div class="control-field">
+      <label for="name-input">ため池名</label>
+      <input type="text" id="name-input" autocomplete="off" placeholder="名称の一部を入力">
+    </div>
+    <div class="control-buttons">
+      <button type="button" id="search-button">検索</button>
+      <button type="button" id="clear-button">クリア</button>
+    </div>
+  </div>
+
+  <!-- 件数・エラー等のメッセージ -->
+  <p id="status" class="status" role="status" aria-live="polite">データを読み込んでいます…</p>
+
+  <!-- ため池名検索の候補一覧 -->
+  <div id="results" class="results" hidden>
+    <h2 id="results-heading" class="results-heading">検索結果</h2>
+    <ul id="result-list" class="result-list" aria-labelledby="results-heading"></ul>
+  </div>
+
+  <!-- 地図 -->
+  <div id="map" role="region" aria-label="ため池位置図"></div>
+
+  <!--
+    ============================================================
+    注意書き（文章を変更する場合はこの <li> の中を書き換えてください）
+    ============================================================
+  -->
+  <section class="notes">
+    <h2>ご利用にあたっての注意</h2>
+    <ul>
+      <li>本マップは農業用ため池の位置および基礎情報を表示するものです。最新の状況や詳細については石川県または各市町へお問い合わせください。</li>
+      <li>地図上の位置や掲載情報は、実際の状況と異なる場合があります。</li>
+    </ul>
+  </section>
+
+</main>
+
+<script src="assets/vendor/leaflet/leaflet.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
